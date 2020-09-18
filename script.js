@@ -2,7 +2,12 @@
 
 window.addEventListener("DOMContentLoaded", start);
 let allStudents = [];
-
+let filterBy = "all";
+const settings = {
+    filter: "all",
+    sortBy: "firstname",
+    sortDir: "asc"
+}
 //prototype
 const Student = {
     firstname: "",
@@ -43,7 +48,6 @@ function prepareObject(jsonObject) {
 
     const firstSpace = fullname.indexOf(" ");
     const lastSpace = fullname.lastIndexOf(" ");
-
     student.firstname = fullname.substring(0, firstSpace);
     student.lastname = fullname.substring(lastSpace);
     student.middlename = fullname.substring(firstSpace, lastSpace);
@@ -51,6 +55,10 @@ function prepareObject(jsonObject) {
         student.nickname = student.middlename.replaceAll("\"", "").trim();
         student.nickname = student.nickname.substring(0, 1).toUpperCase() + student.nickname.substring(1);
         student.middlename = "\n";
+    }
+    if (firstSpace === -1) {
+        student.firstname = fullname;
+        student.lastname = "";
     }
     student.house = jsonObject.house.trim().capitalize();
 
@@ -64,9 +72,9 @@ function prepareObject(jsonObject) {
 }
 
 function buildList() {
-    const currentList = allStudents;
-
-    displayList(currentList);
+    const currentList = filterList(allStudents);
+    const sortedList = sortList(currentList);
+    displayList(sortedList);
 }
 
 function displayList(students) {
@@ -83,9 +91,7 @@ function displayStudent(student) {
     clone.querySelector("[data-field=nickname]").textContent = student.nickname;
     clone.querySelector("[data-field=house]").textContent = student.house;
     clone.querySelector("[data-field=blood-status]").textContent = student.bloodStatus;
-    clone.querySelector("[data-field=prefect]").textContent = student.prefect;
-    clone.querySelector("[data-field=inquisitorial]").textContent = student.inquisitorial;
-    clone.querySelector("[data-field=expelled]").textContent = student.expelled;
+
 
     document.querySelector("#list tbody").appendChild(clone);
 }
@@ -128,30 +134,45 @@ String.prototype.capitalize = function () {
     return this.charAt(0).toUpperCase() + this.slice(1).toLowerCase();
 }
 
+
 function selectFilter(event) {
     const filter = event.target.dataset.filter;
     console.log("user selected " + filter);
-    filterList(filter);
+    setFilter(filter);
 }
 
-function filterList(filterBy) {
-    let filteredList = allStudents;
+function setFilter(filter) {
+    settings.filterBy = filter;
+    buildList();
+}
 
-    if (filterBy === "gryffindor") {
+function filterList(filteredList) {
+    //    let filteredList = allStudents;
+
+    if (settings.filterBy === "gryffindor") {
         filteredList = allStudents.filter(isGryffindor);
     }
-    if (filterBy === "slytherin") {
+    if (settings.filterBy === "slytherin") {
         filteredList = allStudents.filter(isSlytherin);
     }
-    if (filterBy === "hufflepuff") {
+    if (settings.filterBy === "hufflepuff") {
         filteredList = allStudents.filter(isHufflepuff);
     }
-    if (filterBy === "ravenclaw") {
+    if (settings.filterBy === "ravenclaw") {
         filteredList = allStudents.filter(isRavenclaw);
+    }
+    if (settings.filterBy === "prefect") {
+        filteredList = allStudents.filter(isPrefect);
+    }
+    if (settings.filterBy === "expelled") {
+        filteredList = allStudents.filter(isExpelled);
+    }
+    if (settings.filterBy === "inquisitorial") {
+        filteredList = allStudents.filter(isInquisitorial);
     }
 
 
-    displayList(filteredList)
+    return filteredList;
 }
 
 function isGryffindor(student) {
@@ -170,6 +191,74 @@ function isRavenclaw(student) {
     return student.house === "Ravenclaw";
 }
 
+function isPrefect(student) {
+    console.log("yo" + student.prefect);
+
+    return student.prefect === true;
+}
+
+function isExpelled(student) {
+    console.log("2yo" + student.expelled);
+    return student.expelled === true;
+}
+
+function isInquisitorial(student) {
+    return student.inquisitorial === false;
+}
+
 function registerButtons() {
     document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
+    document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
+
+}
+
+function selectSort(event) {
+    const sortBy = event.target.dataset.sort;
+    const sortDir = event.target.dataset.sortDirection;
+    console.log(settings.sortBy);
+
+
+    const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
+    oldElement.classList.remove("sort_by");
+
+    event.target.classList.add("sort_by");
+
+    console.log(sortBy);
+    console.log("her" + oldElement);
+
+    if (sortDir === "asc") {
+        event.target.dataset.sortDirection = "desc";
+    } else {
+        event.target.dataset.sortDirection = "asc";
+    }
+
+    console.log("user selected " + sortBy);
+    setSort(sortBy, sortDir);
+}
+
+function setSort(sortBy, sortDir) {
+    settings.sortBy = sortBy;
+    settings.sortDir = sortDir;
+    buildList();
+}
+
+function sortList(sortedList) {
+    let direction = 1;
+    if (settings.sortDir === "desc") {
+        direction = -1;
+    } else {
+        settings.direction = 1;
+    }
+
+    sortedList = sortedList.sort(sortByProperty);
+
+    function sortByProperty(studentA, studentB) {
+        console.log("yo" + settings.sortBy);
+        if (studentA[settings.sortBy] < studentB[settings.sortBy]) {
+            return -1 * direction;
+        } else {
+            return 1 * direction;
+        }
+    }
+    return sortedList;
 }
