@@ -9,20 +9,59 @@
 </head>
 
 <body>
-    <h1>Hogwarts Student List</h1>
-    <p>
-        Filter:
-        <button class="filter" data-action="filter" data-filter="*">All</button>
-        <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
-        <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
-        <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
-        <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
-        <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
-        <button class="filter" data-action="filter" data-filter="prefects">Prefects</button>
+    <div class="bg"></div>
+    <div class="header">
+        <img src="img2/hogwarts_logo.jpg"></div>
+    <div>
+        <h2>List of students:</h2>
+        <p>
+            Filter:
+            <button class="filter" data-action="filter" data-filter="*">All</button>
+            <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+            <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+            <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+            <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+            <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
+            <button class="filter" data-action="filter" data-filter="prefects">Prefects</button>
+        </p>
 
-    </p>
+        <table id="list">
+            <thead>
+                <tr id="sorting">
+                    <th data-action="sort" data-sort-direction="asc" data-sort="firstname">firstname</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="lastname">lastname</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="middlename">middlename</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="nickname">nickname</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="house">house</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="blood-status">blood-status</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="prefect">prefect</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="inquisitorial">inquisitorial</th>
+                    <th data-action="sort" data-sort-direction="asc" data-sort="expelled">expelled</th>
 
 
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- animal template will be copied and inserted here -->
+            </tbody>
+        </table>
+
+        <template id="student">
+            <tr>
+                <td data-field="firstname">firstname</td>
+                <td data-field="lastname">lastname</td>
+                <td data-field="middlename">middlename</td>
+                <td data-field="nickname">nickname</td>
+                <td data-field="house">house</td>
+                <td data-field="blood-status">blood-status</td>
+                <td data-field="prefect">prefect</td>
+                <td data-field="inquisitorial">inquisitorial</td>
+                <td data-field="expelled">expelled</td>
+
+            </tr>
+        </template>
+    </div>
 
     <script src="script.js"></script>
 </body>

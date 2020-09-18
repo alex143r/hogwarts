@@ -1,0 +1,18 @@
+.header img {
+    width: 20%;
+    height: auto;
+    position: relative;
+}
+
+.header {}
+
+
+body {
+    height: 100%;
+    background-color: #a87e08a4;
+
+}
+
+td {
+    margin: 6em;
+}
