@@ -25,6 +25,7 @@ function start() {
     console.log("start");
     loadJSON();
     registerButtons();
+    registerSearch();
 }
 
 async function loadJSON() {
@@ -66,7 +67,6 @@ function prepareObject(jsonObject) {
     student.prefect = "n/a";
     student.inquisitorial = "n/a";
     student.expelled = "n/a";
-
 
     return student;
 }
@@ -147,8 +147,6 @@ function setFilter(filter) {
 }
 
 function filterList(filteredList) {
-    //    let filteredList = allStudents;
-
     if (settings.filterBy === "gryffindor") {
         filteredList = allStudents.filter(isGryffindor);
     }
@@ -170,8 +168,6 @@ function filterList(filteredList) {
     if (settings.filterBy === "inquisitorial") {
         filteredList = allStudents.filter(isInquisitorial);
     }
-
-
     return filteredList;
 }
 
@@ -192,13 +188,10 @@ function isRavenclaw(student) {
 }
 
 function isPrefect(student) {
-    console.log("yo" + student.prefect);
-
     return student.prefect === true;
 }
 
 function isExpelled(student) {
-    console.log("2yo" + student.expelled);
     return student.expelled === true;
 }
 
@@ -209,7 +202,10 @@ function isInquisitorial(student) {
 function registerButtons() {
     document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
     document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
+}
 
+function registerSearch() {
+    document.querySelector("#search-text").addEventListener("input", search);
 }
 
 function selectSort(event) {
@@ -261,4 +257,31 @@ function sortList(sortedList) {
         }
     }
     return sortedList;
+}
+
+function search(filteredList) {
+    let searchText = document.querySelector("#search-text").value.toLowerCase();
+
+    allStudents.forEach(student => {
+        if (student.firstname.toLowerCase().includes(searchText) || student.middlename.toLowerCase().includes(searchText) || student.lastname.toLowerCase().includes(searchText) || student.nickname.toLowerCase().includes(searchText)) {
+            filteredList = allStudents.filter(containsText);
+        }
+    })
+
+    function containsText(student) {
+        if (student.firstname.toLowerCase().includes(searchText)) {
+            return student.firstname.toLowerCase().includes(searchText);
+        }
+        if (student.middlename.toLowerCase().includes(searchText)) {
+            return student.middlename.toLowerCase().includes(searchText);
+        }
+        if (student.lastname.toLowerCase().includes(searchText)) {
+            return student.lastname.toLowerCase().includes(searchText);
+        }
+        if (student.nickname.toLowerCase().includes(searchText)) {
+            return student.nickname.toLowerCase().includes(searchText);
+        }
+    }
+
+    displayList(filteredList);
 }
