@@ -1,18 +1,67 @@
 .header img {
-    width: 20%;
-    height: auto;
-    position: relative;
+  width: 20%;
+  height: auto;
+  position: relative;
 }
 
-.header {}
-
-
+.header {
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+}
+.header div {
+  margin: 5em;
+}
 body {
-    height: 100%;
-    background-color: #a87e08a4;
-
+  height: 100%;
+  background-color: #a87e08a4;
 }
 
-td {
-    margin: 6em;
+#list th {
+  padding-right: 3em;
+  font-size: 1.4em;
+}
+tbody tr {
+  margin-top: 10em;
+  font-size: 1.2em;
+}
+
+[data-action] {
+  cursor: pointer;
+}
+
+#sorting th.sort_by {
+  text-decoration: underline;
+}
+
+#list {
+  border-collapse: collapse;
+}
+
+#list tbody tr td {
+  padding: 4px;
+}
+
+#sorting th.sort_by[data-sort-direction="desc"]::after {
+  content: "↓";
+}
+
+#sorting th.sort_by[data-sort-direction="asc"]::after {
+  content: "↑";
+}
+
+tr {
+  line-height: 2em;
+  border-bottom: 2px solid black;
+}
+
+[data-field="firstname"],
+[data-field="middlename"],
+[data-field="lastname"],
+[data-field="nickname"] {
+  cursor: pointer;
+}
+
+.hide {
+  display: none;
 }

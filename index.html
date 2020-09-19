@@ -9,59 +9,91 @@
 </head>
 
 <body>
-    <div class="bg"></div>
-    <div class="header">
-        <img src="img2/hogwarts_logo.jpg"></div>
-    <div>
-        <h2>List of students:</h2>
-        <p>
-            Filter:
-            <button class="filter" data-action="filter" data-filter="*">All</button>
-            <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
-            <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
-            <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
-            <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
-            <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
-            <button class="filter" data-action="filter" data-filter="prefects">Prefects</button>
-        </p>
+    <div id="content1">
+        <div class="header">
+            <img src="img2/hogwarts_logo.jpg">
+            <div>
+                <h2 id="total_students">Total students:</h2>
+                <p id="students_gryffindor">Students in Gryffindor:</p>
+                <p id="students_hufflepuff">Students in Hufflepuff:</p>
+                <p id="students_ravenclaw">Students in Ravenclaw:</p>
+                <p id="students_slytherin">Students in Slytherin:</p>
+                <p id="students_expelled">Number of expelled students:</p>
 
-        <table id="list">
-            <thead>
-                <tr id="sorting">
-                    <th data-action="sort" data-sort-direction="asc" data-sort="firstname">firstname</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="lastname">lastname</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="middlename">middlename</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="nickname">nickname</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="house">house</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="blood-status">blood-status</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="prefect">prefect</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="inquisitorial">inquisitorial</th>
-                    <th data-action="sort" data-sort-direction="asc" data-sort="expelled">expelled</th>
-
-
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- animal template will be copied and inserted here -->
-            </tbody>
-        </table>
-
-        <template id="student">
-            <tr>
-                <td data-field="firstname">firstname</td>
-                <td data-field="lastname">lastname</td>
-                <td data-field="middlename">middlename</td>
-                <td data-field="nickname">nickname</td>
-                <td data-field="house">house</td>
-                <td data-field="blood-status">blood-status</td>
-                <td data-field="prefect">prefect</td>
-                <td data-field="inquisitorial">inquisitorial</td>
-                <td data-field="expelled">expelled</td>
-
-            </tr>
-        </template>
+            </div>
+        </div>
+        <div id="content2">
+            <h2>List of students:</h2>
+            <p>
+                Filter:
+                <button class="filter" data-action="filter" data-filter="*">All</button>
+                <button class="filter" data-action="filter" data-filter="gryffindor">Gryffindor</button>
+                <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
+                <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
+                <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
+                <button class="filter" data-action="filter" data-filter="inquisitorial">Inquisitors</button>
+                <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
+                <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
+            </p>
+            <div>
+                <input type="text" id="search-text">
+            </div>
+            <p id="student_count"></p>
+        </div>
     </div>
+    <table id="list">
+        <thead>
+            <tr id="sorting">
+                <th data-action="sort" data-sort-direction="asc" data-sort="firstname">First Name</th>
+                <th data-action="sort" data-sort-direction="asc" data-sort="lastname">Last Name</th>
+                <th data-action="sort" data-sort-direction="asc" data-sort="middlename">Middle Name</th>
+                <th data-action="sort" data-sort-direction="asc" data-sort="nickname">Nickname</th>
+                <th data-action="sort" data-sort-direction="asc" data-sort="house">House</th>
+                <th data-action="sort" data-sort-direction="asc" data-sort="bloodStatus">Blood status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- template will be copied and inserted here -->
+        </tbody>
+    </table>
+
+    <template id="student">
+        <tr>
+            <td data-field="firstname">firstname</td>
+            <td data-field="lastname">lastname</td>
+            <td data-field="middlename">middlename</td>
+            <td data-field="nickname">nickname</td>
+            <td data-field="house">house</td>
+            <td data-field="bloodStatus">blood-status</td>
+        </tr>
+    </template>
+    </div>
+    <div id="detail" class="hide">
+        <button id="detail_btn">X</button>
+        <div id="detail_view">
+            <div class="detail_img">
+                <img src="" alt="" id="picture">
+                <img src="" alt="" id="crest">
+            </div>
+
+            <div class="detail_btn">
+                <button id="prefect_btn">Make Prefect</button>
+                <button id="inquisitor_btn">Make Inquisitor</button>
+                <button id="expel_btn">Expel</button>
+            </div>
+
+            <div id="detail_info">
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </div>
+
+
 
     <script src="script.js"></script>
 </body>
