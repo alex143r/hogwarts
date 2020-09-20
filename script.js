@@ -10,14 +10,16 @@ const settings = {
 }
 //prototype
 const Student = {
+    fullname: "",
     firstname: "",
     lastname: "",
     middlename: "",
     nickname: "",
     house: "",
     bloodStatus: "",
+    image: "",
     prefect: "",
-    inquisitorial: "",
+    inquisitor: "",
     expelled: ""
 }
 
@@ -33,7 +35,6 @@ let slytherinCounter = 0;
 
 function start() {
     console.log("start");
-    loadJSON("https://petlatkea.dk/2020/hogwarts/students.json", prepareObjects);
     loadJSON("https://petlatkea.dk/2020/hogwarts/families.json", prepareBloodstatus);
 
     registerButtons();
@@ -47,18 +48,12 @@ function loadJSON(url, callback) {
 function prepareBloodstatus(jsonBloodstatus) {
     halfBlood = jsonBloodstatus.half;
     pureBlood = jsonBloodstatus.pure;
-    loadedJson++;
-    if (loadedJson === 2) {
-        compareBloodstatus();
-        houseCounter();
-        buildList();
-    }
+    loadJSON("https://petlatkea.dk/2020/hogwarts/students.json", prepareObjects);
 }
 
 function compareBloodstatus() {
     allStudents.forEach(student => {
         if (halfBlood.includes(student.lastname)) {
-            console.log("reee");
             student.bloodStatus = "Half-blood";
         } else if (pureBlood.includes(student.lastname)) {
             student.bloodStatus = "Pure-blood";
@@ -66,32 +61,27 @@ function compareBloodstatus() {
             student.bloodStatus = "Muggle born";
         }
     });
-    console.log(allStudents)
 }
 
 function prepareObjects(jsonData) {
-
     allStudents = jsonData.map(prepareObject);
-    loadedJson++;
-    if (loadedJson === 2) {
-        compareBloodstatus();
-        houseCounter();
-        buildList();
-    }
 
+    compareBloodstatus();
+    houseCounter();
+    buildList();
 }
 
 function prepareObject(jsonObject) {
     const student = Object.create(Student);
 
     let fullname = jsonObject.fullname.trim();
-    fullname = fixName(fullname);
+    student.fullname = fixName(fullname);
 
-    const firstSpace = fullname.indexOf(" ");
-    const lastSpace = fullname.lastIndexOf(" ");
-    student.firstname = fullname.substring(0, firstSpace);
-    student.lastname = fullname.substring(lastSpace + 1);
-    student.middlename = fullname.substring(firstSpace, lastSpace);
+    const firstSpace = student.fullname.indexOf(" ");
+    const lastSpace = student.fullname.lastIndexOf(" ");
+    student.firstname = student.fullname.substring(0, firstSpace);
+    student.lastname = student.fullname.substring(lastSpace + 1);
+    student.middlename = student.fullname.substring(firstSpace, lastSpace);
     if (student.middlename.includes("\"") === true) {
         student.nickname = student.middlename.replaceAll("\"", "").trim();
         student.nickname = student.nickname.substring(0, 1).toUpperCase() + student.nickname.substring(1);
@@ -105,12 +95,13 @@ function prepareObject(jsonObject) {
 
 
     student.prefect = "n/a";
-    student.inquisitorial = "n/a";
     student.expelled = "n/a";
 
 
     return student;
 }
+
+
 
 function houseCounter() {
     allStudents.forEach(student => {
@@ -138,7 +129,6 @@ function buildList() {
 
 function displayList(students) {
     document.querySelector("#list tbody").innerHTML = "";
-
     if (students.length === 1) {
         document.querySelector("#student_count").innerHTML = "Currently showing " + students.length + " student";
     } else {
@@ -147,7 +137,6 @@ function displayList(students) {
     if (students.length === undefined) {
         document.querySelector("#student_count").innerHTML = "Currently showing 0 students";
     }
-
     students.forEach(displayStudent);
 }
 
@@ -174,7 +163,6 @@ function displayStudent(student) {
     clone.querySelector("tr").addEventListener("click", function () {
         showDetail(student);
     });
-
     document.querySelector("#list tbody").appendChild(clone);
 }
 
@@ -188,9 +176,64 @@ function showDetail(student) {
     document.querySelector("#detail_info p:nth-child(4)").innerHTML = "Nickname: " + student.nickname;
     document.querySelector("#detail_info p:nth-child(5)").innerHTML = "House: " + student.house;
     document.querySelector("#detail_info p:nth-child(6)").innerHTML = "Blood-status: " + student.bloodStatus;
-    document.querySelector("#detail_img #picture").src = "../img2/slytherin_crest.png";
-    document.querySelector("#detail_img #crest").innerHTML = "Blood-status: " + student.bloodStatus;
+    document.querySelector("#picture").src = "img/" + getImage(student);
+    document.querySelector("#crest").src = "img2/" + student.house.toLowerCase() + "_crest.png";
+    if (student.house === "Gryffindor") {
+        document.querySelector("#detail_view").style.backgroundColor = "red";
+    }
+    if (student.house === "Hufflepuff") {
+        document.querySelector("#detail_view").style.backgroundColor = "yellow";
+    }
+    if (student.house === "Ravenclaw") {
+        document.querySelector("#detail_view").style.backgroundColor = "blue";
+    }
+    if (student.house === "Slytherin") {
+        document.querySelector("#detail_view").style.backgroundColor = "green";
+    }
+    document.querySelector("#detail_close").addEventListener("click", function () {
+        document.querySelector("#detail").classList.add("hide");
 
+    });
+    document.querySelector("#inquisitor_btn").addEventListener("click", function () {
+        makeInquisitor(student);
+    });
+}
+
+function makeInquisitor(student) {
+    console.log(student);
+    if (student.bloodStatus === "Pure-blood" && student.house === "Slytherin") {
+        student.inquisitor = true;
+    } else {
+        inquisitorError();
+    }
+}
+
+function inquisitorError() {
+    document.querySelector("#not_inquisitor").classList.remove("hide");
+}
+
+function getImage(student) {
+    //check if student lastname occurs twice in array
+    let imgCount = 0;
+
+    allStudents.forEach(s => {
+        if (student.lastname === s.lastname) {
+            imgCount++;
+        }
+    });
+    if (student.lastname.includes("-") == true) {
+        let indexHyphen = student.lastname.indexOf("-");
+        student.image = student.lastname.substring(indexHyphen + 1);
+        student.image = student.lastname.toLowerCase() + "_" + student.fullname.split(' ')[0].substring(0, 1).toLowerCase() + ".png";
+    } else {
+        student.image = student.lastname.toLowerCase() + "_" + student.fullname.split(' ')[0].substring(0, 1).toLowerCase() + ".png";
+    }
+    if (imgCount === 2) {
+        student.image = student.lastname.toLowerCase() + "_" + student.firstname.toLowerCase() + ".png";
+        console.log("yo");
+    }
+    console.log(student.image);
+    return student.image;
 }
 
 function fixName(fullname) {
@@ -207,24 +250,6 @@ function fixName(fullname) {
     fullname = capLetters;
     console.log(fullname);
     return fullname;
-}
-
-function getMiddleName(fullname) {
-    const firstSpace = fullname.indexOf(" ");
-    const lastSpace = fullname.lastIndexOf(" ");
-
-    student.middlename = fullname.substring(firstSpace, lastSpace);
-    if (student.middlename.includes("\"") === true) {
-        student.nickname = student.middlename.replaceAll("\"", "").trim();
-        student.nickname = student.nickname.substring(0, 1).toUpperCase() + student.nickname.substring(1);
-
-        student.middlename = "\n";
-
-    } else if (student.middlename === "") {
-        student.middlename = "\n";
-    } else {
-        student.middlename = fullname.substring(firstSpace + 1, firstSpace + 2).toUpperCase() + fullname.substring(firstSpace + 2, lastSpace);
-    }
 }
 
 String.prototype.capitalize = function () {
@@ -262,8 +287,8 @@ function filterList(filteredList) {
     if (settings.filterBy === "expelled") {
         filteredList = allStudents.filter(isExpelled);
     }
-    if (settings.filterBy === "inquisitorial") {
-        filteredList = allStudents.filter(isInquisitorial);
+    if (settings.filterBy === "inquisitor") {
+        filteredList = allStudents.filter(isInquisitor);
     }
     return filteredList;
 }
@@ -292,8 +317,8 @@ function isExpelled(student) {
     return student.expelled === true;
 }
 
-function isInquisitorial(student) {
-    return student.inquisitorial === false;
+function isInquisitor(student) {
+    return student.inquisitor === false;
 }
 
 function registerButtons() {

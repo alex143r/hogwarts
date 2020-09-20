@@ -69,9 +69,10 @@
     </template>
     </div>
     <div id="detail" class="hide">
-        <button id="detail_btn">X</button>
         <div id="detail_view">
-            <div class="detail_img">
+            <button id="detail_close">X</button>
+
+            <div id="detail_img">
                 <img src="" alt="" id="picture">
                 <img src="" alt="" id="crest">
             </div>
@@ -81,7 +82,6 @@
                 <button id="inquisitor_btn">Make Inquisitor</button>
                 <button id="expel_btn">Expel</button>
             </div>
-
             <div id="detail_info">
                 <p></p>
                 <p></p>
@@ -90,11 +90,22 @@
                 <p></p>
                 <p></p>
             </div>
+
         </div>
     </div>
 
-
-
+    <div id="not_inquisitor" class="dialog hide">
+        <div class="dialogcontent">
+            <button class="closebutton">close</button>
+            <h1>Student is not applicable the Inquisitorial Squad</h1>
+        </div>
+    </div>
+    <div id="not_prefect" class="dialog hide">
+        <div class="dialogcontent">
+            <button class="closebutton">close</button>
+            <h1>Student is not applicable the Inquisitorial Squad</h1>
+        </div>
+    </div>
     <script src="script.js"></script>
 </body>
 
