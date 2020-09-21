@@ -330,6 +330,9 @@ function showDetail(student) {
         document.querySelector("#inquisitor_btn").removeEventListener("click", makeInquisitor);
         document.querySelector("#expel_btn").removeEventListener("click", expelStudent);
         document.querySelector("#expel_btn").innerHTML = "EXPELLED";
+    } else {
+        document.querySelector("#expel_btn").innerHTML = "Expel";
+
     }
 }
 
@@ -495,7 +498,6 @@ function selectSort(event) {
     const sortDir = event.target.dataset.sortDirection;
     console.log(settings.sortBy);
 
-
     const oldElement = document.querySelector(`[data-sort='${settings.sortBy}']`);
     oldElement.classList.remove("sort_by");
 
@@ -588,7 +590,6 @@ function injectSelf() {
     allStudents.push(student);
     hufflepuffCounter++;
     buildList();
-    houseCounter();
 }
 
 function hackBloodStatus() {
