@@ -148,23 +148,23 @@ tr {
     grid-template-columns: repeat(3, 1fr);
     max-height: 100%;
     max-width: 100%;
-    margin: 10% 25%;
+    margin: 5% 10%;
     padding: 1em 2em;
     padding-top: 2em;
     position: relative;
     grid-gap: 10px;
+    overflow: scroll;
 
 }
 
 #detail_img {
     grid-column: 1/2;
-
     grid-gap: 50px;
 }
 
 #crest,
 #picture {
-    width: 100%;
+    width: 80%;
 
 }
 
@@ -178,7 +178,7 @@ tr {
 
 
 .detail_btn {
-    grid-column: 3/4;
+    grid-column: 1/5;
     border-radius: 20px;
 
 }
@@ -197,9 +197,13 @@ tr {
 
 
 #detail_info {
-    grid-column: 1/5;
+    grid-column: 3/5;
     font-weight: bold;
     font-size: 1.2em;
+}
+
+#detail_info p {
+    margin: 0.5em;
 }
 
 #detail_close {
@@ -213,8 +217,6 @@ tr {
 
 
 #content1 {
-    justify-content: center;
-    align-items: center;
     text-align: center;
 }
 

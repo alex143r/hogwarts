@@ -196,16 +196,16 @@ function showDetail(student) {
     }
     document.querySelector("#crest").src = "img2/" + student.house.toLowerCase() + "_crest.png";
     if (student.house === "Gryffindor") {
-        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom right, red, black)";
+        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom left, red, black)";
     }
     if (student.house === "Hufflepuff") {
-        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom right, yellow, black)";
+        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom left, yellow, black)";
     }
     if (student.house === "Ravenclaw") {
-        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom right, #6381FC, black)";
+        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom left, #6381FC, black)";
     }
     if (student.house === "Slytherin") {
-        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom right, green, black)";
+        document.querySelector("#detail_view").style.backgroundImage = "linear-gradient(to bottom left, green, black)";
     }
 
 
@@ -324,11 +324,8 @@ function showDetail(student) {
     }
 }
 
-
-
 function prefectError(student) {
     document.querySelector("#not_prefect .dialogcontent h1").innerHTML = "Already 2 prefects in this house";
-
     document.querySelector("#not_prefect").classList.add("show");
     allStudents.forEach(s => {
         if (s.prefect === true && s.house === student.house) {
@@ -363,7 +360,6 @@ function prefectError(student) {
 
 }
 
-
 function inquisitorError() {
     document.querySelector("#not_inquisitor").classList.add("show");
     document.querySelector(".closebutton").addEventListener("click", function () {
@@ -373,7 +369,6 @@ function inquisitorError() {
 }
 
 function getImage(student) {
-    //check if student lastname occurs twice in array
     let imgCount = 0;
 
     allStudents.forEach(s => {
@@ -478,7 +473,6 @@ function isInquisitor(student) {
 }
 
 function registerButtons() {
-    //filter btns
     document.querySelectorAll("[data-action='filter']").forEach(button => button.addEventListener("click", selectFilter));
     document.querySelectorAll("[data-action='sort']").forEach(button => button.addEventListener("click", selectSort));
 }
