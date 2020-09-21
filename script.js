@@ -215,6 +215,13 @@ function showDetail(student) {
     if (student.inquisitor === false) {
         document.querySelector("#inquisitor_btn").innerHTML = "Make Inquisitor";
     }
+    if (student.expelled === false) {
+        document.querySelector("#expel_btn").innerHTML = "Expel";
+    }
+    if (student.expelled === true) {
+        document.querySelector("#expel_btn").innerHTML = "EXPELLED";
+    }
+
 
 
     if (student.prefect === true) {
