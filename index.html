@@ -11,19 +11,21 @@
 <body>
     <div id="content1">
         <div class="header">
-            <img src="img2/hogwarts_logo.jpg">
+            <div class="img_wrap">
+                <img src="img2/hogwarts_logo.png"></div>
             <div>
                 <h2 id="total_students">Total students:</h2>
                 <p id="students_gryffindor">Students in Gryffindor:</p>
                 <p id="students_hufflepuff">Students in Hufflepuff:</p>
                 <p id="students_ravenclaw">Students in Ravenclaw:</p>
                 <p id="students_slytherin">Students in Slytherin:</p>
-                <p id="students_expelled">Number of expelled students:</p>
+                <p id="students_expelled">Number of expelled students: 0</p>
 
             </div>
         </div>
         <div id="content2">
-            <h2>List of students:</h2>
+
+            <h1>Hogwarts Student List</h1>
             <p>
                 Filter:
                 <button class="filter" data-action="filter" data-filter="*">All</button>
@@ -31,7 +33,7 @@
                 <button class="filter" data-action="filter" data-filter="hufflepuff">Hufflepuff</button>
                 <button class="filter" data-action="filter" data-filter="ravenclaw">Ravenclaw</button>
                 <button class="filter" data-action="filter" data-filter="slytherin">Slytherin</button>
-                <button class="filter" data-action="filter" data-filter="inquisitorial">Inquisitors</button>
+                <button class="filter" data-action="filter" data-filter="inquisitor">Inquisitors</button>
                 <button class="filter" data-action="filter" data-filter="prefect">Prefects</button>
                 <button class="filter" data-action="filter" data-filter="expelled">Expelled</button>
             </p>
@@ -67,15 +69,13 @@
             <td data-field="bloodStatus">blood-status</td>
         </tr>
     </template>
-    </div>
+
     <div id="detail" class="hide">
         <div id="detail_view">
             <button id="detail_close">X</button>
 
-            <div id="detail_img">
-                <img src="" alt="" id="picture">
-                <img src="" alt="" id="crest">
-            </div>
+            <img src="" alt="" id="picture">
+            <img src="" alt="" id="crest">
 
             <div class="detail_btn">
                 <button id="prefect_btn">Make Prefect</button>
@@ -91,19 +91,21 @@
                 <p></p>
             </div>
 
+
         </div>
     </div>
 
-    <div id="not_inquisitor" class="dialog hide">
+    <div id="not_inquisitor" class="dialog">
         <div class="dialogcontent">
             <button class="closebutton">close</button>
-            <h1>Student is not applicable the Inquisitorial Squad</h1>
+            <h1>Student is not good enough for the Inquisitorial Squad</h1>
         </div>
     </div>
-    <div id="not_prefect" class="dialog hide">
+    <div id="not_prefect" class="dialog">
         <div class="dialogcontent">
             <button class="closebutton">close</button>
-            <h1>Student is not applicable the Inquisitorial Squad</h1>
+            <h1>Already 2 prefects in this house</h1>
+            <p></p>
         </div>
     </div>
     <script src="script.js"></script>
