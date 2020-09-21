@@ -312,6 +312,8 @@ function showDetail(student) {
             buildList();
             document.querySelector("#expel_btn").innerHTML = "EXPELLED";
             document.querySelector("#expel_btn").removeEventListener("click", expelStudent);
+            document.querySelector("#inquisitor_btn").removeEventListener("click", makeInquisitor);
+            document.querySelector("#prefect_btn").removeEventListener("click", makePrefect);
 
         }
     }
