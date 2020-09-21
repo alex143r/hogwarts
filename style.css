@@ -152,7 +152,6 @@ tr {
     padding: 1em 2em;
     padding-top: 2em;
     position: relative;
-    background-color: green;
     grid-gap: 10px;
 
 }
@@ -296,5 +295,79 @@ tr {
 
     100% {
         opacity: 0;
+    }
+}
+
+.hufflepuff {
+    background-color: yellow;
+    background-image: linear-gradient(to bottom right, yellow, black);
+}
+
+.gryffindor {
+    background-color: red;
+    background-image: linear-gradient(to bottom right, red, black);
+}
+
+.ravenclaw {
+    background-color: blue;
+    background-image: linear-gradient(to bottom right, blue, black);
+}
+
+.slytherin {
+    background-color: green;
+    background-image: linear-gradient(to bottom right, green, black);
+}
+
+.shake {
+    animation-name: shake_kf;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    animation-timing-function: linear;
+
+}
+
+@keyframes shake_kf {
+    0% {
+        transform: translate(1px, 1px) rotate(0deg);
+    }
+
+    10% {
+        transform: translate(-1px, -2px) rotate(-1deg);
+    }
+
+    20% {
+        transform: translate(-3px, 0px) rotate(1deg);
+    }
+
+    30% {
+        transform: translate(3px, 2px) rotate(0deg);
+    }
+
+    40% {
+        transform: translate(1px, -1px) rotate(1deg);
+    }
+
+    50% {
+        transform: translate(-1px, 2px) rotate(-1deg);
+    }
+
+    60% {
+        transform: translate(-3px, 1px) rotate(0deg);
+    }
+
+    70% {
+        transform: translate(3px, 1px) rotate(-1deg);
+    }
+
+    80% {
+        transform: translate(-1px, -1px) rotate(1deg);
+    }
+
+    90% {
+        transform: translate(1px, 2px) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(1px, -2px) rotate(-1deg);
     }
 }
